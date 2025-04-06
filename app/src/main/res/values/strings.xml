@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">Asesmen1Mobpro</string>
+    <string name="app_name">Laundry</string>
+    <string name="laundry_intro">Laundry cost calculation application. Enter data according to your needs!</string>
+    <string name="laundry_weight">Laundry weight</string>
+    <string name="regular">Regular</string>
+    <string name="express">Express</string>
+    <string name="service">Service</string>
+    <string name="dry_cleaning">Dry cleaning</string>
+    <string name="wash_iron">Wash and iron</string>
+    <string name="ironing">Ironing</string>
+    <string name="count">Count</string>
 </resources>
