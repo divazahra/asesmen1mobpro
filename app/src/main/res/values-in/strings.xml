@@ -12,4 +12,6 @@
     <string name="wash_iron">Cuci setrika</string>
     <string name="price">Total Harga : Rp.</string>
     <string name="input_invalid">Tidak boleh kosong.</string>
+    <string name="about_app">Tentang Aplikasi</string>
+    <string name="copyright">Aplikasi Android untuk perhitungan biaya laundry dengan data yang telah dimasukkan pengguna. \n\nAplikasi ini dibuat untuk Assessment Pemrograman untuk Perangkat Bergerak 1. \n\nCopyright © 2024-2025 Diva Zahra Fakhirah. \nAll rights reserved.</string>
 </resources>

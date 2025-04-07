@@ -11,4 +11,6 @@
     <string name="count">Count</string>
     <string name="price">Total Price : Rp.</string>
     <string name="input_invalid">It cannot be empty.</string>
+    <string name="about_app">About the App</string>
+    <string name="copyright">Android application for the calculation of laundry costs with data that has been entered by the user. \n\nThis application was created for Assessment Pemrograman untuk Perangkat Bergerak 1. \n\nCopyright © 2024-2025 Diva Zahra Fakhirah. \nAll rights reserved.</string>
 </resources>
