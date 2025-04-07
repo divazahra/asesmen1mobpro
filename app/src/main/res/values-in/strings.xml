@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Laundry</string>
+    <string name="ironing">Setrika</string>
+    <string name="count">Hitung</string>
+    <string name="laundry_intro">Aplikasi perhitungan biaya laundry. Masukkan data sesuai dengan kebutuhan Anda!</string>
+    <string name="laundry_weight">Berat laundry</string>
+    <string name="regular">Regular</string>
+    <string name="express">Express</string>
+    <string name="service">Layanan</string>
+    <string name="dry_cleaning">Cuci kering</string>
+    <string name="wash_iron">Cuci setrika</string>
+</resources>
