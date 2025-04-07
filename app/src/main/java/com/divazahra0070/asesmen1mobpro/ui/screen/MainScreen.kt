@@ -35,7 +35,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -86,24 +86,24 @@ fun MainScreen(navController: NavHostController) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenContent(modifier: Modifier = Modifier) {
-    var weight by remember { mutableStateOf("") }
-    var weightError by remember { mutableStateOf(false) }
+    var weight by rememberSaveable { mutableStateOf("") }
+    var weightError by rememberSaveable { mutableStateOf(false) }
 
     val radioOptions = listOf(
         stringResource(id = R.string.regular),
         stringResource(id = R.string.express)
     )
 
-    var type by remember { mutableStateOf(radioOptions[0]) }
+    var type by rememberSaveable { mutableStateOf(radioOptions[0]) }
     val typeOptions = listOf(
         stringResource(id = R.string.dry_cleaning),
         stringResource(id = R.string.wash_iron),
         stringResource(id = R.string.ironing)
     )
-    var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf(typeOptions[0]) }
-    var totalPrice by remember { mutableIntStateOf(0) }
-    var showPrice by remember { mutableStateOf(false) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    var selectedOptionText by rememberSaveable { mutableStateOf(typeOptions[0]) }
+    var totalPrice by rememberSaveable { mutableIntStateOf(0) }
+    var showPrice by rememberSaveable { mutableStateOf(false) }
 
     Column (
         modifier = modifier.fillMaxSize()
