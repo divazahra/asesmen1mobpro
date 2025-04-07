@@ -14,11 +14,14 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -68,6 +71,7 @@ fun MainScreen() {
 @Composable
 fun ScreenContent(modifier: Modifier = Modifier) {
     var weight by remember { mutableStateOf("") }
+    var weightError by remember { mutableStateOf(false) }
 
     val radioOptions = listOf(
         stringResource(id = R.string.regular),
@@ -101,7 +105,9 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             value = weight,
             onValueChange = { weight = it },
             label = { Text(text = stringResource(R.string.laundry_weight))},
-            trailingIcon = { Text(text = "kg")},
+            trailingIcon = { IconPicker(weightError, "kg")},
+            supportingText = { ErrorHint(weightError) },
+            isError = weightError,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
@@ -165,6 +171,9 @@ fun ScreenContent(modifier: Modifier = Modifier) {
         }
         Button(
             onClick = {
+                weightError = (weight == "" || weight == "0")
+                if (weightError) return@Button
+
                 val weightInt = weight.toIntOrNull() ?:0
                 val isExpress = type == "Express"
                 totalPrice = price(selectedOptionText, weightInt, isExpress)
@@ -216,6 +225,22 @@ fun price(selectedOptionText: String, totalWeight: Int, isExpress: Boolean): Int
     val totalPrice = (servicePrice * totalWeight) + expressPrice
 
     return totalPrice
+}
+
+@Composable
+fun IconPicker(isError: Boolean, unit: String) {
+    if (isError) {
+        Icon(imageVector = Icons.Filled.Warning, contentDescription = null)
+    } else {
+        Text(text = unit)
+    }
+}
+
+@Composable
+fun ErrorHint(isError: Boolean) {
+    if (isError) {
+        Text(text = stringResource(R.string.input_invalid))
+    }
 }
 
 @Preview(showBackground = true)
