@@ -9,4 +9,5 @@
     <string name="wash_iron">Wash and iron</string>
     <string name="ironing">Ironing</string>
     <string name="count">Count</string>
+    <string name="price">Total Price : Rp.</string>
 </resources>

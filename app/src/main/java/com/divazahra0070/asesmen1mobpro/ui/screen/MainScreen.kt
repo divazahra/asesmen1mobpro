@@ -28,6 +28,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -66,7 +67,7 @@ fun MainScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenContent(modifier: Modifier = Modifier) {
-    var berat by remember { mutableStateOf("") }
+    var weight by remember { mutableStateOf("") }
 
     val radioOptions = listOf(
         stringResource(id = R.string.regular),
@@ -81,6 +82,8 @@ fun ScreenContent(modifier: Modifier = Modifier) {
     )
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf(typeOptions[0]) }
+    var totalPrice by remember { mutableIntStateOf(0) }
+    var showPrice by remember { mutableStateOf(false) }
 
     Column (
         modifier = modifier.fillMaxSize()
@@ -95,8 +98,8 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth()
         )
         OutlinedTextField(
-            value = berat,
-            onValueChange = { berat = it },
+            value = weight,
+            onValueChange = { weight = it },
             label = { Text(text = stringResource(R.string.laundry_weight))},
             trailingIcon = { Text(text = "kg")},
             singleLine = true,
@@ -161,12 +164,24 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             }
         }
         Button(
-            onClick = {},
+            onClick = {
+                val weightInt = weight.toIntOrNull() ?:0
+                val isExpress = type == "Express"
+                totalPrice = price(selectedOptionText, weightInt, isExpress)
+                showPrice = true
+            },
             modifier = Modifier.padding(top = 8.dp),
             contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
         ) {
             Text(text = stringResource(R.string.count))
         }
+
+        if (showPrice) {
+            Text(
+                text = stringResource(R.string.price) + "$totalPrice"
+            )
+        }
+
     }
 }
 
@@ -183,6 +198,24 @@ fun TypeOption(label: String, isSelected: Boolean, modifier: Modifier) {
             modifier = Modifier.padding(start = 8.dp)
         )
     }
+}
+
+fun price(selectedOptionText: String, totalWeight: Int, isExpress: Boolean): Int {
+    val servicePrice = when (selectedOptionText) {
+        "Dry cleaning" -> 6000
+        "Cuci kering" -> 6000
+        "Wash & iron" -> 7000
+        "Cuci setrika" -> 7000
+        "Ironing" -> 5000
+        "Setrika" -> 5000
+        else -> 0
+    }
+
+    val expressPrice = if (isExpress) 2000 * totalWeight else 0
+
+    val totalPrice = (servicePrice * totalWeight) + expressPrice
+
+    return totalPrice
 }
 
 @Preview(showBackground = true)
