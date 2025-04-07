@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.divazahra0070.asesmen1mobpro.ui.screen.MainScreen
+import com.divazahra0070.asesmen1mobpro.navigation.SetupNavGraph
 import com.divazahra0070.asesmen1mobpro.ui.theme.Asesmen1MobproTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Asesmen1MobproTheme {
-                MainScreen()
+                SetupNavGraph()
             }
         }
     }
