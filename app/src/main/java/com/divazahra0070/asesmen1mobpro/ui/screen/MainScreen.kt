@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,19 +14,24 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -39,6 +45,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -73,15 +80,7 @@ fun MainScreen(navController: NavHostController) {
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 actions = {
-                    IconButton(onClick = {
-                        navController.navigate(Screen.About.route)
-                    }) {
-                        Icon(
-                            imageVector = Icons.Outlined.Info,
-                            contentDescription = stringResource(R.string.about_app),
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
+                    DropdownMenuWithDetails(navController)
                 }
             )
         }
@@ -125,7 +124,7 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             painter = painterResource(id = R.drawable.logo),
             contentDescription = stringResource(R.string.logo),
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth().height(135.dp)
+            modifier = Modifier.width(300.dp).height(135.dp)
         )
         Text(
             text = stringResource(id = R.string.laundry_intro),
@@ -218,6 +217,10 @@ fun ScreenContent(modifier: Modifier = Modifier) {
         }
 
         if (showPrice) {
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 8.dp),
+                thickness = 1.dp
+            )
             Text(
                 text = stringResource(R.string.price) + "$totalPrice"
             )
@@ -290,6 +293,38 @@ fun IconPicker(isError: Boolean, unit: String) {
 fun ErrorHint(isError: Boolean) {
     if (isError) {
         Text(text = stringResource(R.string.input_invalid))
+    }
+}
+
+@Composable
+fun DropdownMenuWithDetails(navController: NavHostController) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Box {
+        IconButton(onClick = { expanded = !expanded }) {
+            Icon(Icons.Default.MoreVert, contentDescription = stringResource(R.string.more))
+        }
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            DropdownMenuItem(
+                text = { Text(text = stringResource(R.string.about_app)) },
+                leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    navController.navigate(Screen.About.route)
+                }
+            )
+            DropdownMenuItem(
+                text = { Text(text = stringResource(R.string.about_me)) },
+                leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    navController.navigate(Screen.Aboutme.route)
+                }
+            )
+        }
     }
 }
 
