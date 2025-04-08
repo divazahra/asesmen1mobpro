@@ -1,5 +1,7 @@
 package com.divazahra0070.asesmen1mobpro.ui.screen
 
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +42,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.ImeAction
@@ -105,6 +108,8 @@ fun ScreenContent(modifier: Modifier = Modifier) {
     var totalPrice by rememberSaveable { mutableIntStateOf(0) }
     var showPrice by rememberSaveable { mutableStateOf(false) }
 
+    val context = LocalContext.current
+
     Column (
         modifier = modifier.fillMaxSize()
             .verticalScroll(rememberScrollState())
@@ -133,7 +138,6 @@ fun ScreenContent(modifier: Modifier = Modifier) {
         )
         Row(
             modifier = Modifier
-                .padding(top = 6.dp)
                 .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
         ) {
             radioOptions.forEach { text ->
@@ -152,7 +156,9 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             }
         }
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp)
         ) {
             ExposedDropdownMenuBox(
                 expanded = expanded,
@@ -192,7 +198,7 @@ fun ScreenContent(modifier: Modifier = Modifier) {
 
                 val weightInt = weight.toIntOrNull() ?:0
                 val isExpress = type == "Express"
-                totalPrice = price(selectedOptionText, weightInt, isExpress)
+                totalPrice = price(context, selectedOptionText, weightInt, isExpress)
                 showPrice = true
             },
             modifier = Modifier.padding(top = 8.dp),
@@ -205,8 +211,19 @@ fun ScreenContent(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(R.string.price) + "$totalPrice"
             )
+            Button(
+                onClick = {
+                    shareData(
+                        context = context,
+                        message = context.getString(R.string.share_template, weight, type, selectedOptionText, totalPrice)
+                    )
+                },
+                modifier = Modifier.padding(top = 8.dp),
+                contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
+            ) {
+                Text(text = stringResource(R.string.share))
+            }
         }
-
     }
 }
 
@@ -225,22 +242,29 @@ fun TypeOption(label: String, isSelected: Boolean, modifier: Modifier) {
     }
 }
 
-fun price(selectedOptionText: String, totalWeight: Int, isExpress: Boolean): Int {
+fun price(context: Context, selectedOptionText: String, totalWeight: Int, isExpress: Boolean): Int {
     val servicePrice = when (selectedOptionText) {
-        "Dry cleaning" -> 6000
-        "Cuci kering" -> 6000
-        "Wash & iron" -> 7000
-        "Cuci setrika" -> 7000
-        "Ironing" -> 5000
-        "Setrika" -> 5000
+        context.getString(R.string.dry_cleaning) -> 6000
+        context.getString(R.string.wash_iron) -> 7000
+        context.getString(R.string.ironing) -> 5000
+
         else -> 0
     }
-
     val expressPrice = if (isExpress) 2000 * totalWeight else 0
 
     val totalPrice = (servicePrice * totalWeight) + expressPrice
 
     return totalPrice
+}
+
+private fun shareData(context: Context, message: String) {
+    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, message)
+    }
+    if (shareIntent.resolveActivity(context.packageManager) != null) {
+        context.startActivity(shareIntent)
+    }
 }
 
 @Composable
