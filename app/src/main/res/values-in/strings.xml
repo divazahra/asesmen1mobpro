@@ -13,7 +13,7 @@
     <string name="price">Total Harga : Rp.</string>
     <string name="input_invalid">Tidak boleh kosong.</string>
     <string name="about_app">Tentang Aplikasi</string>
-    <string name="copyright">Aplikasi Android untuk perhitungan biaya laundry dengan data yang telah dimasukkan pengguna. \n\nAplikasi ini dibuat untuk Assessment Pemrograman untuk Perangkat Bergerak 1. \n\nCopyright © 2024-2025 Diva Zahra Fakhirah. \nAll rights reserved.</string>
+    <string name="copyright">Aplikasi Android untuk perhitungan biaya laundry dengan data yang telah dimasukkan pengguna. \n\nAplikasi ini dibuat untuk Assessment Pemrograman untuk Perangkat Bergerak 1. \n\nCopyright © 2025 Diva Zahra Fakhirah. \nAll rights reserved.</string>
     <string name="back">Kembali</string>
     <string name="share">Bagikan</string>
     <string name="share_template">Berat laundry: %1$s kg\nPaket: %2$s\nTipe layanan: %3$s\n\nTotal Harga: Rp.%4$d</string>
