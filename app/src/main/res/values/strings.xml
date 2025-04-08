@@ -17,4 +17,6 @@
     <string name="share">Share</string>
     <string name="share_template">Laundry weight: %1$s kg\nPackage: %2$s\nService type: %3$s\n\nTotal Price: Rp.%4$d</string>
     <string name="logo">Logo</string>
+    <string name="about_me">About Me</string>
+    <string name="introduce">Name: Diva Zahra Fakhirah\n\nNIM: 607062330070</string>
 </resources>
