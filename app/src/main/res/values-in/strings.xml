@@ -17,4 +17,5 @@
     <string name="back">Kembali</string>
     <string name="share">Bagikan</string>
     <string name="share_template">Berat laundry: %1$s kg\nPaket: %2$s\nTipe layanan: %3$s\n\nTotal Harga: Rp.%4$d</string>
+    <string name="logo">Logo</string>
 </resources>

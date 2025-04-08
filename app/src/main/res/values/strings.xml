@@ -16,4 +16,5 @@
     <string name="back">Back</string>
     <string name="share">Share</string>
     <string name="share_template">Laundry weight: %1$s kg\nPackage: %2$s\nService type: %3$s\n\nTotal Price: Rp.%4$d</string>
+    <string name="logo">Logo</string>
 </resources>
